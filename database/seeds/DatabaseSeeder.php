@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
         	OwnerSeeder::class,
+            StoreSeeder::class,
+            OwnerWithStoreSeeder::class,
         ]);
     }
 }

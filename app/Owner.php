@@ -30,4 +30,9 @@ class Owner extends Model implements AuthenticatableContract, AuthorizableContra
     protected $hidden = [
         'password',
     ];
+
+    public function stores()
+    {
+        return $this->belongsToMany('App\Store');
+    }
 }

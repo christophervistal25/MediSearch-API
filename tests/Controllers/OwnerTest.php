@@ -37,6 +37,7 @@ class OwnerTest extends TestCase
         $response = $this->call('POST', '/owner', $owner);
 
         $this->assertEquals(201, $response->status());
+        $this->seeInDatabase('owners', $owner);
         $this->seeJson(['created' => true]);
     }
 
@@ -72,5 +73,6 @@ class OwnerTest extends TestCase
         $this->assertEquals(422, $response->status());
         $this->seeJson(['success' => false, 'message' => 'Please check your username or password.']);
     }
+
 
 }
