@@ -7,36 +7,43 @@ use Illuminate\Support\Facades\Hash;
 
 class OwnerController extends Controller
 {
-    
+    protected $owner;
+
+    public function __construct(Owner $owner)
+    {
+        $this->owner = $owner;
+    }
+
     public function index()
     {
-        $owners = Owner::orderBy('created_at', 'DESC')
+        $owners = $this->owner::orderBy('created_at', 'DESC')
                         ->get();
         return $owners;
     }
 
+    /**
+     * The checking if the owner is exists is in App\Http\Middleware\IsOwner
+     */
     public function login(Request $request)
     {
-        $owner = Owner::where('email', $request->email)
-                       ->first();
+        $owner = $this->owner->findByEmail($request->email, ['password']);
 
-        if ( $owner && !Hash::check($request->password, $owner->password) || !$owner ) {
+        if ( !Hash::check($request->password, $owner->password) ) {
             return response()->json(['success' => false, 'message' => 'Please check your username or password.'], 422);
         } 
         
         return response()->json(['success' => true, 'message' => 'Authorized.'], 200);
-
     }
 
     public function store(Request $request)
     {
-        $owner = Owner::create([
-                'fullname'   => $request->fullname,
-                'email'      => $request->email,
-                'contact_no' => $request->contact_no,
-                'address'    => $request->address,
-                'password'   => Hash::make($request->password),
-            ]);
+        $owner = $this->owner->create([
+            'fullname'   => $request->fullname,
+            'email'      => $request->email,
+            'contact_no' => $request->contact_no,
+            'address'    => $request->address,
+            'password'   => Hash::make($request->password),
+        ]);
 
         return response()->json(['created' => (bool) $owner], 201);
     }

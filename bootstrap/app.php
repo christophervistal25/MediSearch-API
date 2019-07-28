@@ -63,9 +63,10 @@ $app->middleware([
     \Barryvdh\Cors\HandleCors::class,
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'owner' => App\Http\Middleware\IsOwner::class,
+    // 'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
