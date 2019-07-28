@@ -23,4 +23,9 @@ class Store extends Model
     	return $this->belongsToMany('App\Owner');
     }
 
+    public function medicines()
+    {
+        return $this->belongsToMany('App\Medicine');
+    }
+
 }

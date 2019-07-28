@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Owner;
 use Closure;
 
-class Authenticate
+class IsOwner
 {
     private $owner;
     /**
