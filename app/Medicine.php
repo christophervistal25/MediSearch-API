@@ -16,6 +16,11 @@ class Medicine extends Model
         'quantity', 'price'
     ];
 
+    public function ingredients()
+    {
+        return $this->hasMany('App\Ingredient');
+    }
+
     public function stores()
     {
         return $this->belongsToMany('App\Store');
