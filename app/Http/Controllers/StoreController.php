@@ -5,16 +5,23 @@ use App\Store;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
-{
+{  
+    protected $store;
+
+    public function __construct(Store $store)
+    {
+        $this->store = $store;
+    }
+
     public function store(Request $request)
     {
-        $store = Store::create($request->all());
-        return response()->json(['created' => (bool) $store], 201);
+        $created = $this->store->create($request->all());
+        return response()->json(['created' => (bool) $created], 201);
     }
 
     public function update(Request $request, $id)
     {
-        $updated = Store::find($id)
+        $updated = $this->store->find($id)
                         ->update($request->all());
                         
         return response()->json(['updated' => (bool) $updated]);

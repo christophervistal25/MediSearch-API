@@ -37,7 +37,7 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
-        $owner = $this->owner->create([
+        $created = $this->owner->create([
             'fullname'   => $request->fullname,
             'email'      => $request->email,
             'contact_no' => $request->contact_no,
@@ -45,7 +45,7 @@ class OwnerController extends Controller
             'password'   => Hash::make($request->password),
         ]);
 
-        return response()->json(['created' => (bool) $owner], 201);
+        return response()->json(['created' => (bool) $created], 201);
     }
 
 }

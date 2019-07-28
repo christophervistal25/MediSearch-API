@@ -9,11 +9,11 @@ use TestCase;
 class OwnerTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
-
+    
     /**
      * Returning all the list of owners.
+     * Why cause sometimes there are some co-owners 
      * @test
-     * @return void
      */
     public function it_can_return_list_of_owners()
     {
@@ -42,17 +42,18 @@ class OwnerTest extends TestCase
     }
 
     /**
-     * The owner can successfully login
+     * The owner can login
      * The default password in Ownerfactory is 1234
      * @test
      */
-    public function it_can_successfully_login()
+    public function it_can_login()
     {
         $owner = factory('App\Owner')->create();
 
         $response = $this->call('POST', '/owner/login', 
             ['email' => $owner->email , 'password' => 1234]
         );
+
         $this->assertEquals(200, $response->status());
         $this->seeJson(['success' => true, 'message' => 'Authorized.']);
     }
