@@ -20,8 +20,8 @@ class OwnerTest extends TestCase
         $owners = factory('App\Owner', 5)->create();
 
         $response = $this->call('GET', '/owners');
-
         $this->assertEquals(200, $response->status());
+        $this->assertCount(5, $response->original);
     }
 
     /**

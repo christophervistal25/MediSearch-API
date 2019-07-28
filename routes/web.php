@@ -13,3 +13,6 @@ $router->group(['prefix' => 'owner'], function () use ($router) {
 
 	$router->put('/store/{store}', 'StoreController@update');
 });
+
+$router->get('/store/{id}/medicines', 'StoreMedicineController@medicines');
+$router->post('/store/{id}/medicine', 'StoreMedicineController@entry');

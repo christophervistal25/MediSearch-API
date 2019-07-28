@@ -25,6 +25,7 @@ class OwnerStoreTest extends TestCase
         $response = $this->call('GET', "/owner/$owner->id/stores");
 
         $this->assertEquals(200, $response->status());
+        $this->assertCount(5, $response->original['stores']);
      }
 
     /**
@@ -38,6 +39,7 @@ class OwnerStoreTest extends TestCase
 
         $response = $this->call('POST', "/owner/$owner->id/store", $store);
         $this->assertEquals(201, $response->status());
+        $this->seeInDatabase('stores', $store);
         $this->seeJson(['created' => true]);
     }
 
