@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Owner;
+use App\Pharmacist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

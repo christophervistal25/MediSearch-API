@@ -7,6 +7,9 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
+/**
+ * @group OwnerStore
+ */
 class OwnerStoreTest extends TestCase
 {
      use DatabaseMigrations, DatabaseTransactions;
@@ -41,6 +44,21 @@ class OwnerStoreTest extends TestCase
         $this->assertEquals(201, $response->status());
         $this->seeInDatabase('stores', $store);
         $this->seeJson(['created' => true]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_assign_a_pharmacist()
+    {
+        $owner      = factory('App\Owner')->create();
+        $store      = factory('App\Store')->create();
+        $pharmacist = factory('App\Pharmacist')->make()->toArray();
+
+        $owner->stores()->attach($store->id);
+        $response = $this->call('POST', "/owner/$owner->id/store/$store->id", $pharmacist);
+
+        $this->assertEquals(201, $response->status());
     }
 
 }

@@ -42,5 +42,12 @@ class Owner extends Model implements AuthenticatableContract, AuthorizableContra
                     ->first($columns);
     }
 
+    public function scopefindStoreById($query, $value)
+    {
+        return $query->with(['stores' => function ($query) use ($value) {
+            return $query->where('store_id', $value);
+        }]);
+    }
+
  
 }

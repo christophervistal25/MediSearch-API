@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
         	OwnerSeeder::class,
+            // PharmacistSeeder::class,
             StoreSeeder::class,
             OwnerWithStoreSeeder::class,
             StoreWithMedicineSeeder::class,

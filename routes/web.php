@@ -12,6 +12,8 @@ $router->group(['prefix' => 'owner'], function () use ($router) {
 	$router->get('/{id}/stores', 'OwnerStoreController@stores');
 
 	$router->put('/store/{store}', 'StoreController@update');
+
+	$router->post('/{ownerId}/store/{storeId}', 'OwnerStoreController@assign');
 });
 
 $router->get('/store/{id}/medicines', 'StoreMedicineController@medicines');

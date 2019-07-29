@@ -3,8 +3,10 @@
 namespace App;
 
 
+use App\Pharmacist;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 
 class Store extends Model 
@@ -26,6 +28,22 @@ class Store extends Model
     public function medicines()
     {
         return $this->belongsToMany('App\Medicine');
+    }
+
+    public function pharmacists()
+    {
+        return $this->hasMany('App\Pharmacist');
+    }
+
+    public function assignPharmacist($pharmacist)
+    {
+        $data = new Pharmacist([
+            'fullname'   => $pharmacist->fullname,
+            'email'      => $pharmacist->email,
+            'contact_no' => $pharmacist->contact_no,
+            'address'    => $pharmacist->address,
+            'password'   => Hash::make($pharmacist->password),
+        ]);
     }
 
 }

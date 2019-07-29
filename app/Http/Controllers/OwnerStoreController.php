@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Owner;
+use App\Pharmacist;
 use App\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OwnerStoreController extends Controller
 {
@@ -37,12 +39,17 @@ class OwnerStoreController extends Controller
         return response()->json(['created' => (bool) $store->exists() ], 201);
     }
 
+
     /**
-     * @param  [type]  $id      [description]
-     * @param  [type]  $storeId [description]
+     * Assign a pharmacist
      */
-    public function updateStore(Request $request, $id, $storeId)
+    public function assign(Request $request, $ownerId, $storeId)
     {
+        $owner = $this->models['owner']->findStoreById($storeId)->find($ownerId);
+        $created = (bool) $owner->stores->first()->assignPharmacist($request);
+        return response()->json(['created' => $created], 201);
         
     }
+
+
 }

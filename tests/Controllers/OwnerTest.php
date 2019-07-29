@@ -6,6 +6,9 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
+/**
+ * @group Owner
+ */
 class OwnerTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
@@ -74,6 +77,5 @@ class OwnerTest extends TestCase
         $this->assertEquals(422, $response->status());
         $this->seeJson(['success' => false, 'message' => 'Please check your username or password.']);
     }
-
 
 }
