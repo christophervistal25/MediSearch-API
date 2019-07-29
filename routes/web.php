@@ -20,3 +20,10 @@ $router->get('/store/{id}/medicines', 'StoreMedicineController@medicines');
 $router->post('/store/{id}/medicine', 'StoreMedicineController@entry');
 
 $router->put('medicine/{id}', 'MedicineController@update');
+
+$router->group(['prefix' => 'user'], function () use ($router) {
+	$router->post('/login', 'UserController@login');
+	$router->post('/register', 'UserController@register');
+	$router->get('/{id}', 'UserController@show');
+	$router->put('/{id}', 'UserController@update');
+});

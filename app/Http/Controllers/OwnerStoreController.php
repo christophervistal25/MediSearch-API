@@ -48,7 +48,6 @@ class OwnerStoreController extends Controller
         $owner = $this->models['owner']->findStoreById($storeId)->find($ownerId);
         $created = (bool) $owner->stores->first()->assignPharmacist($request);
         return response()->json(['created' => $created], 201);
-        
     }
 
 
