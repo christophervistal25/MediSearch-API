@@ -1,5 +1,6 @@
 <?php
 
+use App\Ingredient;
 use Illuminate\Database\Seeder;
 
 class StoreWithMedicineSeeder extends Seeder
@@ -15,7 +16,15 @@ class StoreWithMedicineSeeder extends Seeder
 
         factory('App\Medicine', 30)->create();
 
+
         $medicines = App\Medicine::all();
+
+        $index = 0;
+        $medicines->each(function ($medicine) use(&$index) {
+            $ingredient = new Ingredient(['name' => 'Sample Ingredient - ' . $index]);
+            $medicine->ingredients()->save($ingredient);
+            $index++;
+        });
 
         App\Store::all()->each(function ($store) use ($medicines) {
         	$store->medicines()->attach(

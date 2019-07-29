@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Ingredient;
 use Illuminate\Database\Eloquent\Model;
 
 class Medicine extends Model 
@@ -15,6 +16,14 @@ class Medicine extends Model
         'name', 'description', 'directions',
         'quantity', 'price'
     ];
+
+    public function addIngredients( array $ingredients = [])
+    {
+        foreach ($ingredients as $ingredient) {
+            $model[] = new Ingredient(['name' => $ingredient]);
+        }
+        $this->ingredients()->saveMany($model);
+    }
 
     public function ingredients()
     {
