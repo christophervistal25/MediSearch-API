@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CreateOwnerRequest;
 use App\Owner;
 use App\Pharmacist;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class OwnerController extends Controller
         return response()->json(['success' => true, 'message' => 'Authorized.'], 200);
     }
 
-    public function store(Request $request)
+    public function store(CreateOwnerRequest $request)
     {
         $created = $this->owner->create([
             'fullname'   => $request->fullname,
@@ -46,7 +47,7 @@ class OwnerController extends Controller
             'password'   => Hash::make($request->password),
         ]);
 
-        return response()->json(['created' => (bool) $created], 201);
+        return response()->json(['owner' => $created], 201);
     }
 
 }

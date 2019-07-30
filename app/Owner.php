@@ -36,7 +36,7 @@ class Owner extends Model implements AuthenticatableContract, AuthorizableContra
         return $this->belongsToMany('App\Store');
     }
 
-    public function findByEmail(string $email, array $columns = ['*']) : Owner
+    public function findByEmail($email, array $columns = ['*'])
     {
         return $this->where('email', $email)
                     ->first($columns);

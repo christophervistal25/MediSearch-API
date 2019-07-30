@@ -2,6 +2,7 @@
 namespace Tests\Controllers;
 
 use App\Owner;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
@@ -33,15 +34,30 @@ class OwnerTest extends TestCase
      */
     public function it_can_create_a_owner()
     {
+        /**
+         * Adding a password in the owner array to complete the field since the 
+         * password field is hidden in the model this will be not include when it comes to
+         * making a owner in the factory method helper and converting it to array.
+         * to check use the code below.
+         * dd($owner);
+         */
+        
         $owner = factory('App\Owner')
                         ->make()
                         ->toArray();
+        $owner['password'] = 123456;
 
         $response = $this->call('POST', '/owner', $owner);
 
         $this->assertEquals(201, $response->status());
-        $this->seeInDatabase('owners', $owner);
-        $this->seeJson(['created' => true]);
+
+        $this->seeJson([
+            'fullname'   => $response->original['owner']->fullname,
+            'email'      => $response->original['owner']->email,
+            'contact_no' => $response->original['owner']->contact_no,
+            'address'    => $response->original['owner']->address,
+            'id'         => $response->original['owner']->id,
+        ]);
     }
 
     /**

@@ -29,7 +29,6 @@ class IsOwner
      */
     public function handle($request, Closure $next)
     {
-        
         if ( !$this->owner->findByEmail($request->email) ) {
             return response()->json(['success' => false, 'message' => 'Please check your username or password.'], 422);
         }

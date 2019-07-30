@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +24,7 @@ class UserController extends Controller
         return response()->json(['login' => true, 'message' => 'Authorized']);
     }
 
-    public function register(Request $request)
+    public function register(CreateUserRequest $request)
     {
         
         $created = $this->user->create([
@@ -34,7 +35,7 @@ class UserController extends Controller
             'password'   => Hash::make($request->password),
         ]);
 
-        return response()->json(['registered' => (bool) $created], 201);
+        return response()->json(['user' => $created], 201);
     }
 
     public function show($id)

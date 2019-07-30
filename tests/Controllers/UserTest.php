@@ -50,13 +50,20 @@ class UserTest extends TestCase
      */
     public function it_can_register()
     {
-        $user = factory('App\User')->make();
+        $user = factory('App\User')->make()->toArray();
+        $user['password'] = 123456;
 
-        $response = $this->call('POST', '/user/register', $user->toArray());
-
+        $response = $this->call('POST', '/user/register', $user);
+        
         $this->assertEquals(201, $response->status());
-        $this->seeInDatabase('users', $user->toArray());
-        $this->seeJson(['registered' => true]);
+
+        $this->seeInDatabase('users', [
+            'fullname'   => $response->original['user']->fullname,
+            'email'      => $response->original['user']->email,
+            'contact_no' => $response->original['user']->contact_no,
+            'address'    => $response->original['user']->address,
+            'id'         => $response->original['user']->id,
+        ]);
     }
 
     /**

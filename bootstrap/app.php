@@ -102,5 +102,5 @@ $app->router->group([
 
 $app->configure('cors');
 $app->register(Barryvdh\Cors\ServiceProvider::class);
-
+$app->register(Urameshibr\Providers\FormRequestServiceProvider::class);
 return $app;
