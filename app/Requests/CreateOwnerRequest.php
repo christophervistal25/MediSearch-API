@@ -13,11 +13,11 @@ class CreateOwnerRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'fullname' => 'required|min:1|max:20',
-			'email' => 'required|unique:owners,email',
-			'contact_no' => 'required|unique:owners,contact_no|min:11|max:13',
-			'address' => 'required',
-			'password' => 'required|min:6|max:20',
+			'fullname'   => 'required|min:1|max:20',
+			'email'      => 'required|unique:owners',
+			'contact_no' => 'required|unique:owners|starts_with:+639,09|min:11|max:13',
+			'address'    => 'required',
+			'password'   => 'required|min:6|max:20',
 		];
 	}
 

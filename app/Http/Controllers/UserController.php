@@ -26,7 +26,6 @@ class UserController extends Controller
 
     public function register(CreateUserRequest $request)
     {
-        
         $created = $this->user->create([
             'fullname'   => $request->fullname,
             'email'      => $request->email,
@@ -35,7 +34,7 @@ class UserController extends Controller
             'password'   => Hash::make($request->password),
         ]);
 
-        return response()->json(['user' => $created], 201);
+        return response()->json($created, 201);
     }
 
     public function show($id)

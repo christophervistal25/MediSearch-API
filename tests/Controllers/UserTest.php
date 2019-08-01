@@ -58,11 +58,11 @@ class UserTest extends TestCase
         $this->assertEquals(201, $response->status());
 
         $this->seeInDatabase('users', [
-            'fullname'   => $response->original['user']->fullname,
-            'email'      => $response->original['user']->email,
-            'contact_no' => $response->original['user']->contact_no,
-            'address'    => $response->original['user']->address,
-            'id'         => $response->original['user']->id,
+            'fullname'   => $response->original->fullname,
+            'email'      => $response->original->email,
+            'contact_no' => $response->original->contact_no,
+            'address'    => $response->original->address,
+            'id'         => $response->original->id,
         ]);
     }
 
