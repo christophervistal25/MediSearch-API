@@ -6,10 +6,26 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
+/**
+ * @group Store
+ */
 class StoreTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
-    
+
+    /**
+     * @test
+     */
+    public function it_can_list_all_stores()
+    {
+        factory('App\Store', 10)->create();
+
+        $response = $this->call('GET', 'stores');
+
+        $this->assertEquals(200, $response->status());
+        $this->assertCount(10, $response->original);
+    }
+
     /**
      * The store can store a new Store
      * @test

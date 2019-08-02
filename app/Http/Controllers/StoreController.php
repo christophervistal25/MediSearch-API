@@ -13,6 +13,11 @@ class StoreController extends Controller
         $this->store = $store;
     }
 
+    public function index()
+    {
+        return $this->store->all();
+    }
+
     public function store(Request $request)
     {
         $created = $this->store->create($request->all());

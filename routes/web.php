@@ -1,6 +1,7 @@
 <?php
 
 $router->get('/owners', 'OwnerController@index');
+$router->get('/stores', 'StoreController@index');
 
 $router->group(['prefix' => 'owner'], function () use ($router) {
 	
