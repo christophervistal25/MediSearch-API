@@ -57,4 +57,5 @@ class StoreTest extends TestCase
         $this->seeJson(['updated' => true]);
         $this->seeInDatabase('stores', $store->toArray());
     }
+
 }

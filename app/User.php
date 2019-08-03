@@ -25,5 +25,9 @@ class User extends Model
     protected $hidden = [
         'password',
     ];
- 
+    
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

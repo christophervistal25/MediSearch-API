@@ -15,7 +15,8 @@ class StoreController extends Controller
 
     public function index()
     {
-        return $this->store->all();
+        $columns = ['id' ,'name', 'located_at'];
+        return $this->store->all($columns);
     }
 
     public function store(Request $request)

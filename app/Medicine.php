@@ -17,14 +17,6 @@ class Medicine extends Model
         'quantity', 'price'
     ];
 
-    public function addIngredients( array $ingredients = [])
-    {
-        foreach ($ingredients as $ingredient) {
-            $model[] = new Ingredient(['name' => $ingredient]);
-        }
-        $this->ingredients()->saveMany($model);
-    }
-
     public function ingredients()
     {
         return $this->hasMany('App\Ingredient');
@@ -33,6 +25,19 @@ class Medicine extends Model
     public function stores()
     {
         return $this->belongsToMany('App\Store');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    public function addIngredients( array $ingredients = [])
+    {
+        foreach ($ingredients as $ingredient) {
+            $model[] = new Ingredient(['name' => $ingredient]);
+        }
+        $this->ingredients()->saveMany($model);
     }
 
 }

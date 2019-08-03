@@ -35,6 +35,11 @@ class Store extends Model
         return $this->hasMany('App\Pharmacist');
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
     public function assignPharmacist($pharmacist)
     {
         $data = new Pharmacist([
