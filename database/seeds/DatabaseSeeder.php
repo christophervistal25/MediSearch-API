@@ -12,11 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            UserSeeder::class,
         	OwnerSeeder::class,
             // PharmacistSeeder::class,
-            StoreSeeder::class,
             OwnerWithStoreSeeder::class,
             StoreWithMedicineSeeder::class,
+            // StoreCommentSeeder::class,
         ]);
     }
 }

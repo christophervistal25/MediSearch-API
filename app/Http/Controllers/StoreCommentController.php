@@ -10,7 +10,8 @@ class StoreCommentController extends Controller
 
     public function show($storeId)
     {
-        $store = Store::with('comments.user:id,fullname')->find($storeId);
+        $store = Store::with(['comments.user:id,fullname', 'comments.replies.user:id,fullname'])
+                       ->find($storeId);
         return $store->comments;
     }
 
@@ -24,7 +25,7 @@ class StoreCommentController extends Controller
 
         $insertedComment = $store->comments()->save($comment);
 
-        return response()->json(['comment' => $insertedComment], 201);
+        return response()->json($insertedComment, 201);
     }
 
     public function update(Request $request, $commentId)

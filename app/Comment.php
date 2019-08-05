@@ -5,7 +5,6 @@ namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class Comment extends Model 
 {
@@ -19,5 +18,10 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function replies()
+    {
+    	return $this->hasMany('App\Reply');
     }
 }

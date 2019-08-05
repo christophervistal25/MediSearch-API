@@ -20,9 +20,12 @@ $router->group(['prefix' => 'owner'], function () use ($router) {
 $router->get('/store/{id}/medicines', 'StoreMedicineController@medicines');
 $router->post('/store/{id}/medicine', 'StoreMedicineController@entry');
 
+$router->get('/store/{storeId}/comments', 'StoreCommentController@show');
 $router->post('/store/comment', 'StoreCommentController@store');
 $router->put('/store/comment/{commentId}', 'StoreCommentController@update');
-$router->get('/store/{storeId}/comments', 'StoreCommentController@show');
+
+$router->post('/comment/reply', 'ReplyController@store');
+$router->put('/comment/reply/{replyId}', 'ReplyController@update');
 
 $router->put('medicine/{id}', 'MedicineController@update');
 
